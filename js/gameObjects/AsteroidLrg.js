@@ -1,13 +1,13 @@
-class MeteorLrg extends Phaser.GameObjects.Sprite {
+class AsteroidLrg extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, 'meteorBig');
+    super(scene, x, y, 'asteroidBig');
     this.gameScene = scene;
     // add to existing scene
     scene.add.existing(this);
     // add existing physics
     scene.physics.add.existing(this);
     // add beam to projectiles group
-    scene.meteors.add(this);
+    scene.asteroids.add(this);
 
     this.health = 3;
     this.speed = Phaser.Math.FloatBetween(1, 2.5);
@@ -16,21 +16,21 @@ class MeteorLrg extends Phaser.GameObjects.Sprite {
 
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
-    this.moveMeteor(this.speed, this.rotSpeed);
+    this.moveAsteroid(this.speed, this.rotSpeed);
   };
 
-  moveMeteor(speed, rotSpeed) {
+  moveAsteroid(speed, rotSpeed) {
     // movement
     this.y += speed;
     // rotation
     this.angle -= rotSpeed;
     // check if made it below screen
     if (this.y > config.height + 100) {
-      this.destroyMeteor(false);
+      this.destroyAsteroid(false);
     };
   };
 
-  damageMeteor(fromLaser) {
+  damageAsteroid(fromLaser) {
     if (fromLaser) {
       this.health--;
       this.gameScene.updateScore(5);
@@ -38,19 +38,19 @@ class MeteorLrg extends Phaser.GameObjects.Sprite {
         // play explosion
         const boom = this.gameScene.add.sprite(this.x, this.y, 'explosion');
         boom.play('explode');
-        this.destroyMeteor(true);
+        this.destroyAsteroid(true);
       };
     } else {
-      this.destroyMeteor(false);
+      this.destroyAsteroid(false);
     };
   };
 
-  destroyMeteor(playerDestroyed) {
+  destroyAsteroid(playerDestroyed) {
     if (playerDestroyed) {
       this.gameScene.updateScore(15);
     };
-    // destroy & add new meteor
+    // destroy & add new asteroid
     this.destroy();
-    this.gameScene.addMeteor();
+    this.gameScene.addAsteroid();
   };
 };

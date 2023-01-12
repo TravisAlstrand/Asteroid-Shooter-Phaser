@@ -11,9 +11,9 @@ class Level1 extends Phaser.Scene {
     this.load.image('player', 'assets/player.png');
     this.load.image('playerLeft', 'assets/playerLeft.png');
     this.load.image('playerRight', 'assets/playerRight.png');
-    // load meteor images
-    this.load.image('meteorSmall', 'assets/meteorSmall.png');
-    this.load.image('meteorBig', 'assets/meteorBig.png');
+    // load asteroid images
+    this.load.image('asteroidSmall', 'assets/asteroidSmall.png');
+    this.load.image('asteroidBig', 'assets/asteroidBig.png');
     // load explosion spritesheet
     this.load.spritesheet('explosion', 'assets/spritesheets/explosion.png', {
       frameWidth: 64,
@@ -40,9 +40,9 @@ class Level1 extends Phaser.Scene {
       maxSize: 10,
       runChildUpdate: true
     });
-    // create meteor group
-    this.meteors = this.add.group({
-      classType: [MeteorSml, MeteorLrg],
+    // create asteroid group
+    this.asteroids = this.add.group({
+      classType: [AsteroidSml, AsteroidLrg],
       maxSize: 10,
       runChildUpdate: true
     });
@@ -54,25 +54,25 @@ class Level1 extends Phaser.Scene {
       repeat: 0,
       hideOnComplete: true
     });
-    // create initial meteors
-    this.addMeteor();
-    this.addMeteor();
-    this.addMeteor();
-    this.addMeteor();
-    this.addMeteor();
+    // create initial asteroids
+    this.addAsteroid();
+    this.addAsteroid();
+    this.addAsteroid();
+    this.addAsteroid();
+    this.addAsteroid();
     // create player
     this.addPlayer();
-    // create player / meteor collision 
-    this.physics.add.collider(this.player, this.meteors, (player, meteor) => {
+    // create player / asteroid collision 
+    this.physics.add.collider(this.player, this.asteroids, (player, asteroid) => {
       console.log('hit')
-      meteor.body.disable = true;
-      meteor.damageMeteor(false);
+      asteroid.body.disable = true;
+      asteroid.damageAsteroid(false);
       player.damagePlayer();
       this.updateScore(-150);
     });
-    // create laser / meteor collision
-    this.physics.add.overlap(this.projectiles, this.meteors, (projectile, meteor) => {
-      meteor.damageMeteor(true);
+    // create laser / asteroid collision
+    this.physics.add.overlap(this.projectiles, this.asteroids, (projectile, asteroid) => {
+      asteroid.damageAsteroid(true);
       projectile.destroyLaser();
     });
   };
@@ -91,16 +91,16 @@ class Level1 extends Phaser.Scene {
     this.player = new Player(this, 400, 825);
   };
 
-  // create new meteor
-  addMeteor() {
+  // create new asteroid
+  addAsteroid() {
     const randomFloat = Math.random();
     const randomX = Phaser.Math.Between(0, config.width);
     const randomY = Phaser.Math.Between(-100, -200);
     if (randomFloat < .5) {
-      new MeteorSml(this, randomX, randomY);
+      new AsteroidSml(this, randomX, randomY);
     }
     else {
-      new MeteorLrg(this, randomX, randomY);
+      new AsteroidLrg(this, randomX, randomY);
     };
   };
 
