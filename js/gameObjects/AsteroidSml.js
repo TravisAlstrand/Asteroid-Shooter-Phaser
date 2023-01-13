@@ -30,14 +30,16 @@ class AsteroidSml extends Phaser.GameObjects.Sprite {
     };
   };
 
-  damageAsteroid(fromLaser) {
-    // play explosion
-    const boom = this.gameScene.add.sprite(this.x, this.y, 'explosion');
-    boom.play('explode');
-    if (fromLaser) {
-      this.destroyAsteroid(true);
-    } else {
-      this.destroyAsteroid(false);
+  damageAsteroid(fromLaser, fromPlayerCollision) {
+    if (fromLaser || fromPlayerCollision) {
+      // play explosion
+      const boom = this.gameScene.add.sprite(this.x, this.y, 'explosion');
+      boom.play('explode');
+      if (fromLaser) {
+        this.destroyAsteroid(true);
+      } else {
+        this.destroyAsteroid(false);
+      };
     };
   };
 

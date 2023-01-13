@@ -63,16 +63,14 @@ class Level1 extends Phaser.Scene {
     // create player
     this.addPlayer();
     // create player / asteroid collision 
-    this.physics.add.collider(this.player, this.asteroids, (player, asteroid) => {
-      console.log('hit')
-      asteroid.body.disable = true;
-      asteroid.damageAsteroid(false);
+    this.physics.add.overlap(this.player, this.asteroids, (player, asteroid) => {
+      asteroid.damageAsteroid(false, true);
       player.damagePlayer();
       this.updateScore(-150);
     });
     // create laser / asteroid collision
     this.physics.add.overlap(this.projectiles, this.asteroids, (projectile, asteroid) => {
-      asteroid.damageAsteroid(true);
+      asteroid.damageAsteroid(true, false);
       projectile.destroyLaser();
     });
   };

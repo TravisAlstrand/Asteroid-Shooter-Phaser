@@ -16,10 +16,6 @@ class Player extends Phaser.GameObjects.Sprite {
     console.log(`Player Health: ${this.health}`);
   };
 
-  create() {
-
-  };
-
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
     this.movePlayer();

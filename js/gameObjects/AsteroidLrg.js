@@ -30,18 +30,20 @@ class AsteroidLrg extends Phaser.GameObjects.Sprite {
     };
   };
 
-  damageAsteroid(fromLaser) {
+  damageAsteroid(fromLaser, fromPlayerCollision) {
     if (fromLaser) {
       this.health--;
       this.gameScene.updateScore(5);
-      if (this.health <= 0) {
-        // play explosion
-        const boom = this.gameScene.add.sprite(this.x, this.y, 'explosion');
-        boom.play('explode');
+    };
+    if (this.health <= 0 || fromPlayerCollision) {
+      // play explosion
+      const boom = this.gameScene.add.sprite(this.x, this.y, 'explosion');
+      boom.play('explode');
+      if (fromLaser) {
         this.destroyAsteroid(true);
+      } else {
+        this.destroyAsteroid(false);
       };
-    } else {
-      this.destroyAsteroid(false);
     };
   };
 

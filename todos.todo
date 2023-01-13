@@ -1,0 +1,34 @@
+SCENES:
+  ☐ add titlescreen / menu (start game, exit, controls)
+  ☐ add pause functionality / overlay (current score, current lives / health, main menu)
+  ☐ add game over screen / menu (play again, main menu, exit, score)
+
+CORE GAMEPLAY:
+  ☐ pause background / destroy active asteroids on player death
+  ☐ spawn 5 new asteroids upon new life continue
+  ☐ countdown before game start
+  ☐ add player start below screen and fly up to position
+  ☐ start slow, increase asteroid / background speed after a repeating countdown
+
+PLAYER: 
+  ☐ add player lives
+  ☐ add player health
+  ☐ tint player red / flash when losing health
+  ☐ add player death explosion
+  ☐ remove life on death
+  ☐ push player above laser sprite
+
+ASTEROIDS:
+  ☐ edit 2 new large sprite versions for damage with each shot
+
+PICKUPS:
+  ☐ new life pickups spawned after a period of time
+  ☐ shield pickup after a period of time if player doesn't have one
+  ☐ increase player move speed pickup
+
+AUDIO:
+  ☐ add fx for laser shoot
+  ☐ add fx for asteroid destroy
+  ☐ add fx for player death
+  ☐ add fx for life pickup
+  ☐ add looping background music
