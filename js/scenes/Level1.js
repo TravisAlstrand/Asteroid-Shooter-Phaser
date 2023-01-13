@@ -65,6 +65,7 @@ class Level1 extends Phaser.Scene {
     // create player / asteroid collision 
     this.physics.add.overlap(this.player, this.asteroids, (player, asteroid) => {
       asteroid.damageAsteroid(false, true);
+      this.cameras.main.shake(250, 0.02, true);
       player.damagePlayer();
       this.updateScore(-150);
     });

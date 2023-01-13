@@ -9,6 +9,8 @@ CORE GAMEPLAY:
   ☐ countdown before game start
   ☐ add player start below screen and fly up to position
   ☐ start slow, increase asteroid / background speed after a repeating countdown
+  ☐ add in WASD & mouse click alternative keys
+  ✔ screenshake on player damage @done(23-01-13 12:11)
 
 PLAYER: 
   ☐ add player lives
