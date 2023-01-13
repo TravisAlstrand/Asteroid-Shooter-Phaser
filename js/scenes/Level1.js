@@ -34,6 +34,9 @@ class Level1 extends Phaser.Scene {
     // create input variables
     this.cursors = this.input.keyboard.createCursorKeys();
     this.spaceKey = this.cursors.space;
+    this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     // create laser group
     this.projectiles = this.add.group({
       classType: Laser,
@@ -80,7 +83,7 @@ class Level1 extends Phaser.Scene {
     // scroll background
     this.background.tilePositionY -= 0.75;
     // check for player fire
-    if (Phaser.Input.Keyboard.JustDown(this.spaceKey)) {
+    if (Phaser.Input.Keyboard.JustDown(this.spaceKey) || Phaser.Input.Keyboard.JustDown(this.enterKey)) {
       this.addLaser();
     };
   };
@@ -88,6 +91,7 @@ class Level1 extends Phaser.Scene {
   // add player to the scene
   addPlayer() {
     this.player = new Player(this, 400, 825);
+    this.player.depth = 5;
   };
 
   // create new asteroid

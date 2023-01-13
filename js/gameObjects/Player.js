@@ -10,6 +10,8 @@ class Player extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
     // retrieve input from scene
     this.keys = scene.cursors;
+    this.aKey = scene.aKey;
+    this.dKey = scene.dKey;
 
     this.setScale(0.75);
     this.health = 3;
@@ -22,11 +24,11 @@ class Player extends Phaser.GameObjects.Sprite {
   };
 
   movePlayer() {
-    if (this.keys.left.isDown) {
+    if (this.keys.left.isDown || this.aKey.isDown) {
       // move player left / set image
       this.body.setVelocityX(-gameSettings.playerSpeed);
       this.setTexture('playerLeft');
-    } else if (this.keys.right.isDown) {
+    } else if (this.keys.right.isDown || this.dKey.isDown) {
       // move player right / set image
       this.body.setVelocityX(gameSettings.playerSpeed);
       this.setTexture('playerRight');

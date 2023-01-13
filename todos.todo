@@ -9,7 +9,7 @@ CORE GAMEPLAY:
   ☐ countdown before game start
   ☐ add player start below screen and fly up to position
   ☐ start slow, increase asteroid / background speed after a repeating countdown
-  ☐ add in WASD & mouse click alternative keys
+  ✔ add in WASD & ENTER alternative keys @done(23-01-13 12:21)
   ✔ screenshake on player damage @done(23-01-13 12:11)
 
 PLAYER: 
@@ -18,7 +18,7 @@ PLAYER:
   ☐ tint player red / flash when losing health
   ☐ add player death explosion
   ☐ remove life on death
-  ☐ push player above laser sprite
+  ✔ push player above laser sprite @done(23-01-13 12:24)
 
 ASTEROIDS:
   ☐ edit 2 new large sprite versions for damage with each shot
