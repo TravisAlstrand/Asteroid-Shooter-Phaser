@@ -41,6 +41,30 @@ class Player extends Phaser.GameObjects.Sprite {
 
   damagePlayer() {
     this.health--;
-    // console.log(`Player Health: ${this.health}`);
+    console.log(`Player Health: ${this.health}`);
+    if (this.health > 1) {
+      this.flashColor(0xFF0000);
+    } else if (this.health === 1) {
+      this.setTint(0xFF0000);
+    } else {
+      this.gameScene.killPlayer();
+    };
+  };
+
+  flashColor(color) {
+    this.setTint(color);
+    this.gameScene.time.addEvent({
+      delay: 1000,
+      callback: function () { this.clearTint(); },
+      callbackScope: this
+    });
+  };
+
+  destroyPlayer() {
+    // play explosion
+    const boom = this.gameScene.add.sprite(this.x, this.y, 'explosion');
+    boom.setScale(4);
+    boom.play('explode');
+    this.destroy();
   };
 };

@@ -4,23 +4,26 @@ SCENES:
   ☐ add game over screen / menu (play again, main menu, exit, score)
 
 CORE GAMEPLAY:
-  ☐ pause background / destroy active asteroids on player death
-  ☐ spawn 5 new asteroids upon new life continue
+  ☐ make player invincible for period on re-spawn
   ☐ countdown before game start
   ☐ add player start below screen and fly up to position
   ☐ start slow, increase asteroid / background speed after a repeating countdown
   ✔ add in WASD & ENTER alternative keys @done(23-01-13 12:21)
   ✔ screenshake on player damage @done(23-01-13 12:11)
+  ☐ add pause / resume functionality @started(23-01-13 12:47)
+  ☐ decide if score should go negative, change if not
 
 PLAYER: 
-  ☐ add player lives
-  ☐ add player health
-  ☐ tint player red / flash when losing health
-  ☐ add player death explosion
-  ☐ remove life on death
+  ✔ add player life images @done(23-01-15 09:26)
+  ✔ add player lives @done(23-01-15 10:13)
+  ✔ add player health @done(23-01-15 10:13)
+  ✔ tint player red / flash when losing health @done(23-01-15 10:14)
+  ✔ add player death explosion @done(23-01-15 10:13)
+  ✔ remove life on death @done(23-01-15 10:14)
   ✔ push player above laser sprite @done(23-01-13 12:24)
 
 ASTEROIDS:
+  ✔ make large asteroid explosion bigger @done(23-01-15 10:14)
   ☐ edit 2 new large sprite versions for damage with each shot
 
 PICKUPS:

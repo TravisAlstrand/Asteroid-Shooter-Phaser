@@ -38,6 +38,7 @@ class AsteroidLrg extends Phaser.GameObjects.Sprite {
     if (this.health <= 0 || fromPlayerCollision) {
       // play explosion
       const boom = this.gameScene.add.sprite(this.x, this.y, 'explosion');
+      boom.setScale(2.5);
       boom.play('explode');
       if (fromLaser) {
         this.destroyAsteroid(true);
