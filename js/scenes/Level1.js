@@ -92,18 +92,34 @@ class Level1 extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustUp(this.escKey) && !this.scene.isPaused()) {
       this.scene.pause();
     };
+    console.log(this.children.length);
   };
 
   // add player to the scene
   addPlayer() {
-    this.player = new Player(this, 400, 860);
+    // start below screen
+    this.player = new Player(this, 400, 950);
+    this.player.alpha = 0.5;
     this.player.depth = 5;
     // create player / asteroid collision 
     this.physics.add.overlap(this.player, this.asteroids, (player, asteroid) => {
       asteroid.damageAsteroid(false, true);
-      this.cameras.main.shake(250, 0.02, true);
-      player.damagePlayer();
-      this.updateScore(-150);
+      if (this.player.alpha === 1) {
+        this.cameras.main.shake(250, 0.02, true);
+        player.damagePlayer();
+        this.updateScore(-150);
+      };
+    });
+    this.tweens.add({
+      targets: this.player,
+      y: config.height - 65,
+      ease: 'Power1',
+      duration: 1500,
+      repeat: 0,
+      onComplete: () => {
+        this.player.alpha = 1;
+      },
+      callbackScope: this
     });
   };
 
@@ -115,14 +131,15 @@ class Level1 extends Phaser.Scene {
     // destroy player
     this.player.destroyPlayer();
     // add delay & create new player
-    if (this.playerLives >= 0) {
+    if (this.playerLives > 0) {
       this.time.addEvent({
         delay: 1000,
         callback: function () { this.addPlayer(); },
         callbackScope: this
       });
+    } else {
+      this.showTempGameOver();
     };
-    // if 0 lives left, game over
   };
 
   updateLifeImages(lives) {
@@ -157,12 +174,24 @@ class Level1 extends Phaser.Scene {
 
   // create new laser
   addLaser() {
-    new Laser(this);
+    if (this.player.active) {
+      new Laser(this);
+    };
   };
 
   // update score on screen
   updateScore(numToAdd) {
     this.score += numToAdd;
+    if (this.score < 0) {
+      this.score = 0;
+    };
     this.scoreText.setText(`Score : ${this.score}`);
+  };
+
+  showTempGameOver() {
+    this.gameOverText = this.add.text(400, 462.5, 'GAME OVER', { fontFamily: 'Anton', fontSize: '80px', fill: '#4ad468' });
+    this.gameOverText.setOrigin(0.5, 0.5);
+    this.gameOverText.depth = 5;
+    this.gameOverText.setShadow(2, 2, 'white', 2);
   };
 };

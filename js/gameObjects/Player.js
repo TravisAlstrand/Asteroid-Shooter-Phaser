@@ -1,4 +1,4 @@
-class Player extends Phaser.GameObjects.Sprite {
+class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'player');
     this.gameScene = scene;
@@ -41,7 +41,7 @@ class Player extends Phaser.GameObjects.Sprite {
 
   damagePlayer() {
     this.health--;
-    console.log(`Player Health: ${this.health}`);
+    // console.log(`Player Health: ${this.health}`);
     if (this.health > 1) {
       this.flashColor(0xFF0000);
     } else if (this.health === 1) {

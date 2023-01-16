@@ -4,14 +4,14 @@ SCENES:
   ☐ add game over screen / menu (play again, main menu, exit, score)
 
 CORE GAMEPLAY:
-  ☐ make player invincible for period on re-spawn
+  ✔ make player invincible for period on re-spawn @done(23-01-16 09:58)
   ☐ countdown before game start
-  ☐ add player start below screen and fly up to position
+  ✔ add player start below screen and fly up to position @done(23-01-16 09:58)
   ☐ start slow, increase asteroid / background speed after a repeating countdown
   ✔ add in WASD & ENTER alternative keys @done(23-01-13 12:21)
   ✔ screenshake on player damage @done(23-01-13 12:11)
-  ☐ add pause / resume functionality @started(23-01-13 12:47)
-  ☐ decide if score should go negative, change if not
+  ☐ add pause / resume functionality
+  ✔ stop score from going negative @done(23-01-16 09:58)
 
 PLAYER: 
   ✔ add player life images @done(23-01-15 09:26)
