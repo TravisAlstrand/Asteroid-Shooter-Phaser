@@ -38,6 +38,9 @@ class Level1 extends Phaser.Scene {
     this.life2 = this.add.image(725, 40, 'life');
     this.life3 = this.add.image(675, 40, 'life');
     this.lifeImages = [this.life1, this.life2, this.life3];
+    this.lifeImages.forEach(image => {
+      image.depth = 5;
+    });
     this.playerLives = 3;
     // create input variables
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -66,14 +69,21 @@ class Level1 extends Phaser.Scene {
       repeat: 0,
       hideOnComplete: true
     });
-    // create initial asteroids
-    this.addAsteroid();
-    this.addAsteroid();
-    this.addAsteroid();
-    this.addAsteroid();
-    this.addAsteroid();
     // create player
     this.addPlayer();
+    // start countdown attempt
+    this.initialTime = 3;
+    this.countdownText = this.add.text(400, 462.5, this.initialTime.toString(), { fontFamily: 'Anton', fontSize: '80px', fill: '#4ad468' });
+    this.countdownText.setOrigin(0.5, 0.5);
+    this.countdownText.depth = 5;
+    this.countdownText.setShadow(2, 2, 'white', 2);
+    this.countdown = this.time.addEvent({
+      delay: 1000,
+      callback: this.updateCountdown,
+      callbackScope: this,
+      repeat: 3
+    });
+
     // create laser / asteroid collision
     this.physics.add.overlap(this.projectiles, this.asteroids, (projectile, asteroid) => {
       asteroid.damageAsteroid(true, false);
@@ -92,7 +102,6 @@ class Level1 extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustUp(this.escKey) && !this.scene.isPaused()) {
       this.scene.pause();
     };
-    console.log(this.children.length);
   };
 
   // add player to the scene
@@ -114,13 +123,23 @@ class Level1 extends Phaser.Scene {
       targets: this.player,
       y: config.height - 65,
       ease: 'Power1',
-      duration: 1500,
+      duration: 2000,
       repeat: 0,
       onComplete: () => {
         this.player.alpha = 1;
       },
       callbackScope: this
     });
+  };
+
+  updateCountdown() {
+    if (this.initialTime === 0) {
+      this.countdownText.setVisible(false);
+      this.addInitialAsteroids();
+    } else {
+      this.initialTime--;
+      this.countdownText.setText(this.initialTime.toString());
+    };
   };
 
   killPlayer() {
@@ -160,10 +179,19 @@ class Level1 extends Phaser.Scene {
     };
   };
 
+  addInitialAsteroids() {
+    this.time.addEvent({
+      delay: 2000,
+      callback: () => { this.addAsteroid(); },
+      callbackScope: this,
+      repeat: 4
+    });
+  };
+
   // create new asteroid
   addAsteroid() {
     const randomFloat = Math.random();
-    const randomX = Phaser.Math.Between(0, config.width);
+    const randomX = Phaser.Math.Between(25, config.width - 25);
     const randomY = Phaser.Math.Between(-100, -200);
     if (randomFloat < .5) {
       new AsteroidSml(this, randomX, randomY);

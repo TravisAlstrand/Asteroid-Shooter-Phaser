@@ -15,7 +15,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.setScale(0.75);
     this.health = 3;
-    console.log(`Player Health: ${this.health}`);
   };
 
   preUpdate(time, delta) {
@@ -45,7 +44,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     if (this.health > 1) {
       this.flashColor(0xFF0000);
     } else if (this.health === 1) {
-      this.setTint(0xFF0000);
+      this.gameScene.time.addEvent({
+        delay: 1000,
+        callback: function () { this.setTint(0xFF0000); },
+        callbackScope: this
+      });
     } else {
       this.gameScene.killPlayer();
     };
