@@ -23,9 +23,20 @@ class Level1 extends Phaser.Scene {
     this.load.image('laser', 'assets/laserRed.png');
     // load life ship image
     this.load.image('life', 'assets/life.png');
+    // load audio
+    this.load.audio('shoot', 'assets/audio/laser5.mp3');
+    this.load.audio('explodeAsteroid', 'assets/audio/explosion4.wav');
+    this.load.audio('explodePlayer', 'assets/audio/explosion1.wav');
+    this.load.audio('gameMusic', 'assets/audio/gameMusic.ogg');
   };
 
   create() {
+    this.music = this.sound.add('gameMusic');
+    this.music.play(musicConfig);
+    // add sfx
+    this.laserSound = this.sound.add('shoot');
+    this.explodeAsteroidSound = this.sound.add('explodeAsteroid');
+    this.explodePlayerSound = this.sound.add('explodePlayer');
     // add background image
     this.background = this.add.tileSprite(0, 0, config.width, config.height, 'background').setOrigin(0, 0);
     // create score text
@@ -204,6 +215,7 @@ class Level1 extends Phaser.Scene {
   addLaser() {
     if (this.player.active) {
       new Laser(this);
+      this.laserSound.play();
     };
   };
 

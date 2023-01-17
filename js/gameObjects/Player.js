@@ -40,7 +40,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
   damagePlayer() {
     this.health--;
-    // console.log(`Player Health: ${this.health}`);
+    this.gameScene.explodeAsteroidSound.play();
     if (this.health > 1) {
       this.flashColor(0xFF0000);
     } else if (this.health === 1) {
@@ -66,6 +66,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
   destroyPlayer() {
     // play explosion
+    this.gameScene.explodePlayerSound.play();
     const boom = this.gameScene.add.sprite(this.x, this.y, 'explosion');
     boom.setScale(4);
     boom.play('explode');

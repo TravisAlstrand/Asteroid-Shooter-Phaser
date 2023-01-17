@@ -15,6 +15,16 @@ const config = {
   scene: [TitleScreen, Level1]
 };
 
+const musicConfig = {
+  mute: false,
+  volume: .25,
+  rate: 1,
+  detune: 0,
+  seek: 0,
+  loop: true,
+  delay: 0
+};
+
 const gameSettings = {
   playerSpeed: 300,
 };

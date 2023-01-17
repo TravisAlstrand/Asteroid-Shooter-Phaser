@@ -46,6 +46,7 @@ class AsteroidSml extends Phaser.GameObjects.Sprite {
   destroyAsteroid(playerDestroyed) {
     if (playerDestroyed) {
       this.gameScene.updateScore(15);
+      this.gameScene.explodeAsteroidSound.play();
     };
     // destroy & add new asteroid
     this.destroy();
