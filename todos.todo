@@ -21,6 +21,7 @@ PLAYER:
   ✔ add player death explosion @done(23-01-15 10:13)
   ✔ remove life on death @done(23-01-15 10:14)
   ✔ push player above laser sprite @done(23-01-13 12:24)
+  ☐ add short invincibility period after damage
 
 ASTEROIDS:
   ✔ make large asteroid explosion bigger @done(23-01-15 10:14)

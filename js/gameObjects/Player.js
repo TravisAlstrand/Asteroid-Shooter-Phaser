@@ -44,6 +44,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     if (this.health > 1) {
       this.flashColor(0xFF0000);
     } else if (this.health === 1) {
+      this.setTint(0xFF0000)
       this.gameScene.time.addEvent({
         delay: 1000,
         callback: function () { this.setTint(0xFF0000); },
