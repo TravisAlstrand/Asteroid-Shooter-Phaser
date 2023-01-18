@@ -10,7 +10,7 @@ class AsteroidSml extends Phaser.GameObjects.Sprite {
     // add beam to projectiles group
     scene.asteroids.add(this);
 
-    this.speed = Phaser.Math.FloatBetween(1, 4);
+    this.speed = Phaser.Math.FloatBetween(gameSettings.asteroidSpeedLow, gameSettings.asteroidSpeedHigh);
     this.rotSpeed = Phaser.Math.FloatBetween(1, 3);
   };
 

@@ -24,9 +24,9 @@ class Level1 extends Phaser.Scene {
     // load life ship image
     this.load.image('life', 'assets/life.png');
     // load audio
-    this.load.audio('shoot', 'assets/audio/laser5.mp3');
-    this.load.audio('explodeAsteroid', 'assets/audio/explosion4.wav');
-    this.load.audio('explodePlayer', 'assets/audio/explosion1.wav');
+    this.load.audio('shoot', 'assets/audio/laserSound.mp3');
+    this.load.audio('explodeAsteroid', 'assets/audio/asteroidExplode.wav');
+    this.load.audio('explodePlayer', 'assets/audio/playerExplode.wav');
     this.load.audio('gameMusic', 'assets/audio/gameMusic.ogg');
   };
 
@@ -102,9 +102,9 @@ class Level1 extends Phaser.Scene {
     });
   };
 
-  update() {
+  update(time) {
     // scroll background
-    this.background.tilePositionY -= 0.75;
+    this.background.tilePositionY -= gameSettings.backgroundSpeed;
     // check for player fire
     if (Phaser.Input.Keyboard.JustDown(this.spaceKey) || Phaser.Input.Keyboard.JustDown(this.enterKey)) {
       this.addLaser();
@@ -147,6 +147,7 @@ class Level1 extends Phaser.Scene {
     if (this.initialTime === 0) {
       this.countdownText.setVisible(false);
       this.addInitialAsteroids();
+      this.startSpeedChangerLoop();
     } else {
       this.initialTime--;
       this.countdownText.setText(this.initialTime.toString());
@@ -211,6 +212,16 @@ class Level1 extends Phaser.Scene {
     };
   };
 
+  startSpeedChangerLoop() {
+    console.log('loop called')
+    this.time.addEvent({
+      delay: 30000,
+      callback: function () { this.speedUp(); },
+      callbackScope: this,
+      loop: true
+    });
+  };
+
   // create new laser
   addLaser() {
     if (this.player.active) {
@@ -233,5 +244,12 @@ class Level1 extends Phaser.Scene {
     this.gameOverText.setOrigin(0.5, 0.5);
     this.gameOverText.depth = 5;
     this.gameOverText.setShadow(2, 2, 'white', 2);
+  };
+
+  speedUp() {
+    gameSettings.backgroundSpeed = gameSettings.backgroundSpeed + .5;
+    gameSettings.asteroidSpeedLow = gameSettings.asteroidSpeedLow + 1;
+    gameSettings.asteroidSpeedHigh = gameSettings.asteroidSpeedHigh + 1;
+    console.log(`${gameSettings.asteroidSpeedHigh}`);
   };
 };

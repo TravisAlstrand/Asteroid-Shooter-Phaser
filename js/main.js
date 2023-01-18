@@ -27,6 +27,9 @@ const musicConfig = {
 
 const gameSettings = {
   playerSpeed: 300,
+  backgroundSpeed: 0.75,
+  asteroidSpeedLow: 1,
+  asteroidSpeedHigh: 3
 };
 
 const game = new Phaser.Game(config);

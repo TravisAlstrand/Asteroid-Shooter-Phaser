@@ -10,7 +10,7 @@ class AsteroidLrg extends Phaser.GameObjects.Sprite {
     scene.asteroids.add(this);
 
     this.health = 3;
-    this.speed = Phaser.Math.FloatBetween(1, 2.5);
+    this.speed = Phaser.Math.FloatBetween(gameSettings.asteroidSpeedLow, gameSettings.asteroidSpeedHigh);
     this.rotSpeed = Phaser.Math.FloatBetween(1, 3);
   };
 

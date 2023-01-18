@@ -7,7 +7,7 @@ CORE GAMEPLAY:
   ✔ make player invincible for period on re-spawn @done(23-01-16 09:58)
   ✔ countdown before game start @done(23-01-17 12:13)
   ✔ add player start below screen and fly up to position @done(23-01-16 09:58)
-  ☐ start slow, increase asteroid / background speed after a repeating countdown
+  ✔ start slow, increase asteroid / background speed after a repeating countdown @done(23-01-17 16:29)
   ✔ add in WASD & ENTER alternative keys @done(23-01-13 12:21)
   ✔ screenshake on player damage @done(23-01-13 12:11)
   ☐ add pause / resume functionality
@@ -33,8 +33,8 @@ PICKUPS:
   ☐ increase player move speed pickup
 
 AUDIO:
-  ☐ add fx for laser shoot
-  ☐ add fx for asteroid destroy
-  ☐ add fx for player death
+  ✔ add fx for laser shoot @done(23-01-17 16:29)
+  ✔ add fx for asteroid destroy @done(23-01-17 16:29)
+  ✔ add fx for player death @done(23-01-17 16:29)
   ☐ add fx for life pickup
-  ☐ add looping background music
+  ✔ add looping background music @done(23-01-17 16:29)
