@@ -1,8 +1,7 @@
-
 class Level1 extends Phaser.Scene {
   constructor() {
-    super('level1')
-  }
+    super('level1');
+  };
 
   preload() {
     // load background image
@@ -30,6 +29,7 @@ class Level1 extends Phaser.Scene {
     this.load.audio('explodeAsteroid', 'assets/audio/asteroidExplode.wav');
     this.load.audio('explodePlayer', 'assets/audio/playerExplode.wav');
     this.load.audio('gameMusic', 'assets/audio/gameMusic.ogg');
+    this.load.audio('lifePickup', 'assets/audio/lifePickup.mp3');
   };
 
   create() {
@@ -39,6 +39,7 @@ class Level1 extends Phaser.Scene {
     this.laserSound = this.sound.add('shoot');
     this.explodeAsteroidSound = this.sound.add('explodeAsteroid');
     this.explodePlayerSound = this.sound.add('explodePlayer');
+    this.lifePickupSound = this.sound.add('lifePickup');
     // add background image
     this.background = this.add.tileSprite(0, 0, config.width, config.height, 'background').setOrigin(0, 0);
     // create score text
@@ -74,6 +75,11 @@ class Level1 extends Phaser.Scene {
       maxSize: 10,
       runChildUpdate: true
     });
+    // create pickups group
+    this.pickups = this.add.group({
+      classType: Pickup,
+      runChildUpdate: true
+    });
     // create explosion animation
     this.anims.create({
       key: 'explode',
@@ -96,7 +102,6 @@ class Level1 extends Phaser.Scene {
       callbackScope: this,
       repeat: 3
     });
-
     // create laser / asteroid collision
     this.physics.add.overlap(this.projectiles, this.asteroids, (projectile, asteroid) => {
       asteroid.damageAsteroid(true, false);
@@ -104,7 +109,7 @@ class Level1 extends Phaser.Scene {
     });
   };
 
-  update(time) {
+  update() {
     // scroll background
     this.background.tilePositionY -= gameSettings.backgroundSpeed;
     // check for player fire
@@ -112,15 +117,15 @@ class Level1 extends Phaser.Scene {
       this.addLaser();
     };
     // check for pause button
-    if (Phaser.Input.Keyboard.JustUp(this.escKey) && !this.scene.isPaused()) {
-      this.scene.pause();
-    };
+    // if (Phaser.Input.Keyboard.JustUp(this.escKey) && !this.scene.isPaused()) {
+    //   this.scene.pause();
+    // };
   };
 
   // add player to the scene
   addPlayer() {
     // start below screen
-    this.player = new Player(this, 400, 950);
+    this.player = new Player(this, 400, 925);
     this.player.alpha = 0.5;
     this.player.depth = 5;
     // create player / asteroid collision 
@@ -131,6 +136,15 @@ class Level1 extends Phaser.Scene {
         player.damagePlayer();
         this.updateScore(-150);
       };
+    });
+    // create player / pickups collision
+    this.physics.add.overlap(this.player, this.pickups, (player, pickup) => {
+      if (pickup.texture.key === 'life') {
+        this.playerLives++;
+        this.lifePickupSound.play();
+        this.updateLifeImages(this.playerLives);
+      };
+      pickup.destroyPickup();
     });
     this.tweens.add({
       targets: this.player,
@@ -215,13 +229,17 @@ class Level1 extends Phaser.Scene {
   };
 
   startSpeedChangerLoop() {
-    console.log('loop called')
     this.time.addEvent({
       delay: 30000,
-      callback: function () { this.speedUp(); },
+      callback: () => { this.speedUp(); this.addPickup(); },
       callbackScope: this,
       loop: true
     });
+  };
+
+  addPickup() {
+    const randomX = Phaser.Math.Between(35, config.width - 35);
+    new Pickup(this, randomX, -100, 'life');
   };
 
   // create new laser
@@ -252,6 +270,5 @@ class Level1 extends Phaser.Scene {
     gameSettings.backgroundSpeed = gameSettings.backgroundSpeed + .5;
     gameSettings.asteroidSpeedLow = gameSettings.asteroidSpeedLow + 1;
     gameSettings.asteroidSpeedHigh = gameSettings.asteroidSpeedHigh + 1;
-    console.log(`${gameSettings.asteroidSpeedHigh}`);
   };
 };

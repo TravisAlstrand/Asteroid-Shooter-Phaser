@@ -25,7 +25,7 @@ PLAYER:
 
 ASTEROIDS:
   ✔ make large asteroid explosion bigger @done(23-01-15 10:14)
-  ☐ edit 2 new large sprite versions for damage with each shot
+  ✔ edit 2 new large sprite versions for damage with each shot @done(23-01-18 10:53)
 
 PICKUPS:
   ☐ new life pickups spawned after a period of time
