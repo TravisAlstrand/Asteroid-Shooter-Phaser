@@ -41,6 +41,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
   damagePlayer() {
     this.health--;
     this.gameScene.explodeAsteroidSound.play();
+    this.alpha = 0.5;
+    this.gameScene.time.addEvent({
+      delay: 1500,
+      callback: function () { this.alpha = 1; },
+      callbackScope: this
+    });
     if (this.health > 1) {
       this.flashColor(0xFF0000);
     } else if (this.health === 1) {

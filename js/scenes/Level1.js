@@ -14,6 +14,8 @@ class Level1 extends Phaser.Scene {
     // load asteroid images
     this.load.image('asteroidSmall', 'assets/asteroidSmall.png');
     this.load.image('asteroidBig', 'assets/asteroidBig.png');
+    this.load.image('asteroidBig-2', 'assets/asteroidBig-2.png');
+    this.load.image('asteroidBig-3', 'assets/asteroidBig-3.png');
     // load explosion spritesheet
     this.load.spritesheet('explosion', 'assets/spritesheets/explosion.png', {
       frameWidth: 64,

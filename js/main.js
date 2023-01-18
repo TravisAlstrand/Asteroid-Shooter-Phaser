@@ -17,7 +17,7 @@ const config = {
 
 const musicConfig = {
   mute: false,
-  volume: .25,
+  volume: 0,
   rate: 1,
   detune: 0,
   seek: 0,

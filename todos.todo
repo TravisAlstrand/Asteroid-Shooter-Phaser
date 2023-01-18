@@ -13,7 +13,7 @@ CORE GAMEPLAY:
   ☐ add pause / resume functionality
   ✔ stop score from going negative @done(23-01-16 09:58)
 
-PLAYER: 
+PLAYER:
   ✔ add player life images @done(23-01-15 09:26)
   ✔ add player lives @done(23-01-15 10:13)
   ✔ add player health @done(23-01-15 10:13)
@@ -21,7 +21,7 @@ PLAYER:
   ✔ add player death explosion @done(23-01-15 10:13)
   ✔ remove life on death @done(23-01-15 10:14)
   ✔ push player above laser sprite @done(23-01-13 12:24)
-  ☐ add short invincibility period after damage
+  ✔ add short invincibility period after damage @done(23-01-18 10:36)
 
 ASTEROIDS:
   ✔ make large asteroid explosion bigger @done(23-01-15 10:14)

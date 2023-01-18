@@ -33,6 +33,11 @@ class AsteroidLrg extends Phaser.GameObjects.Sprite {
   damageAsteroid(fromLaser, fromPlayerCollision) {
     if (fromLaser) {
       this.health--;
+      if (this.health === 2) {
+        this.setTexture('asteroidBig-2');
+      } else if (this.health === 1) {
+        this.setTexture('asteroidBig-3');
+      };
       this.gameScene.updateScore(5);
     };
     if (this.health <= 0 || fromPlayerCollision) {
