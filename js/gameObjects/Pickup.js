@@ -8,6 +8,10 @@ class Pickup extends Phaser.GameObjects.Sprite {
 
     this.speed = 1;
     this.rotSpeed = 1;
+
+    if (texture === 'shieldPickup') {
+      this.scale = 0.5;
+    }
   };
 
   preUpdate() {

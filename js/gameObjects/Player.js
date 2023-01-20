@@ -15,6 +15,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.setScale(0.75);
     this.health = 3;
+    this.hasShield = false;
   };
 
   preUpdate(time, delta) {
@@ -40,6 +41,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
   damagePlayer() {
     this.health--;
+    console.log(`playerHealth: ${this.health}`)
     this.gameScene.explodeAsteroidSound.play();
     this.alpha = 0.5;
     this.gameScene.time.addEvent({

@@ -10,6 +10,7 @@ class Level1 extends Phaser.Scene {
     this.load.image('player', 'assets/player.png');
     this.load.image('playerLeft', 'assets/playerLeft.png');
     this.load.image('playerRight', 'assets/playerRight.png');
+    this.load.image('playerShield', 'assets/shield.png');
     // load asteroid images
     this.load.image('asteroidSmall', 'assets/asteroidSmall.png');
     this.load.image('asteroidBig', 'assets/asteroidBig.png');
@@ -22,14 +23,17 @@ class Level1 extends Phaser.Scene {
     });
     // load laser image
     this.load.image('laser', 'assets/laserRed.png');
-    // load life ship image
+    // load pickup images
     this.load.image('life', 'assets/life.png');
+    this.load.image('shieldPickup', 'assets/shieldIcon-2.png');
     // load audio
     this.load.audio('shoot', 'assets/audio/laserSound.mp3');
     this.load.audio('explodeAsteroid', 'assets/audio/asteroidExplode.wav');
     this.load.audio('explodePlayer', 'assets/audio/playerExplode.wav');
     this.load.audio('gameMusic', 'assets/audio/gameMusic.ogg');
     this.load.audio('lifePickup', 'assets/audio/lifePickup.mp3');
+    this.load.audio('shieldPickupSound', 'assets/audio/shieldPickup.wav');
+    this.load.audio('shieldDestroySound', 'assets/audio/loseShield.wav');
   };
 
   create() {
@@ -40,6 +44,8 @@ class Level1 extends Phaser.Scene {
     this.explodeAsteroidSound = this.sound.add('explodeAsteroid');
     this.explodePlayerSound = this.sound.add('explodePlayer');
     this.lifePickupSound = this.sound.add('lifePickup');
+    this.shieldPickupSound = this.sound.add('shieldPickupSound');
+    this.loseShieldSound = this.sound.add('shieldDestroySound');
     // add background image
     this.background = this.add.tileSprite(0, 0, config.width, config.height, 'background').setOrigin(0, 0);
     // create score text
@@ -80,6 +86,11 @@ class Level1 extends Phaser.Scene {
       classType: Pickup,
       runChildUpdate: true
     });
+    // create shield group
+    this.shields = this.add.group({
+      classType: Shield,
+      runChildUpdate: true
+    });
     // create explosion animation
     this.anims.create({
       key: 'explode',
@@ -106,6 +117,13 @@ class Level1 extends Phaser.Scene {
     this.physics.add.overlap(this.projectiles, this.asteroids, (projectile, asteroid) => {
       asteroid.damageAsteroid(true, false);
       projectile.destroyLaser();
+    });
+    // create shield / asteroid collision
+    this.physics.add.overlap(this.shields, this.asteroids, (shield, asteroid) => {
+      asteroid.damageAsteroid(false, true);
+      this.cameras.main.shake(250, 0.02, true);
+      this.explodeAsteroidSound.play();
+      shield.damageShield();
     });
   };
 
@@ -141,8 +159,18 @@ class Level1 extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.pickups, (player, pickup) => {
       if (pickup.texture.key === 'life') {
         this.playerLives++;
+        if (this.playerLives > 3) {
+          this.playerLives = 3;
+        };
         this.lifePickupSound.play();
         this.updateLifeImages(this.playerLives);
+      } else if (pickup.texture.key === 'shieldPickup') {
+        if (player.hasShield === true) {
+          this.shield.destroyShield(false);
+        };
+        this.shield = new Shield(this, player.x, 840);
+        player.hasShield = true;
+        this.shieldPickupSound.play();
       };
       pickup.destroyPickup();
     });
@@ -190,11 +218,13 @@ class Level1 extends Phaser.Scene {
   };
 
   updateLifeImages(lives) {
+    console.log(lives)
     const color = '#000000';
+    this.lifeImages.forEach(image => {
+      image.clearTint();
+    });
     if (lives >= 3) {
-      this.lifeImages.forEach(image => {
-        image.clearTint();
-      });
+      return;
     } else if (lives === 2) {
       this.lifeImages[2].setTint(color);
     } else if (lives === 1) {
@@ -239,7 +269,11 @@ class Level1 extends Phaser.Scene {
 
   addPickup() {
     const randomX = Phaser.Math.Between(35, config.width - 35);
-    new Pickup(this, randomX, -100, 'life');
+    if (this.playerLives < 3) {
+      new Pickup(this, randomX, -100, 'life');
+    } else if (this.playerLives === 3) {
+      new Pickup(this, randomX, -100, 'shieldPickup');
+    };
   };
 
   // create new laser
@@ -268,7 +302,7 @@ class Level1 extends Phaser.Scene {
 
   speedUp() {
     gameSettings.backgroundSpeed = gameSettings.backgroundSpeed + .5;
-    gameSettings.asteroidSpeedLow = gameSettings.asteroidSpeedLow + 1;
-    gameSettings.asteroidSpeedHigh = gameSettings.asteroidSpeedHigh + 1;
+    gameSettings.asteroidSpeedLow = gameSettings.asteroidSpeedLow + .5;
+    gameSettings.asteroidSpeedHigh = gameSettings.asteroidSpeedHigh + .5;
   };
 };

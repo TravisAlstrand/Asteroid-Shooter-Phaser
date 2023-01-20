@@ -28,13 +28,17 @@ ASTEROIDS:
   ✔ edit 2 new large sprite versions for damage with each shot @done(23-01-18 10:53)
 
 PICKUPS:
-  ☐ new life pickups spawned after a period of time
-  ☐ shield pickup after a period of time if player doesn't have one
-  ☐ increase player move speed pickup
+  ✔ new life pickups spawned after a period of time @done(23-01-18 14:38)
+  ✔ shield pickup if player doesn't have one and has full lives @done(23-01-19 16:48)
+  ☐ add 1000 point pickup if has full health shield
+  ✔ have shield follow player position @done(23-01-19 17:29)
+  ✔ give shield two health, tint red on one @done(23-01-19 17:29)
 
 AUDIO:
   ✔ add fx for laser shoot @done(23-01-17 16:29)
   ✔ add fx for asteroid destroy @done(23-01-17 16:29)
   ✔ add fx for player death @done(23-01-17 16:29)
-  ☐ add fx for life pickup
+  ✔ add fx for life pickup @done(23-01-18 14:38)
   ✔ add looping background music @done(23-01-17 16:29)
+  ✔ add fx for shield pickup @done(23-01-19 16:48)
+  ✔ add fx for shield activate / deactivate @done(23-01-19 17:29)
