@@ -25,7 +25,7 @@ class Level1 extends Phaser.Scene {
     this.load.image('laser', 'assets/laserRed.png');
     // load pickup images
     this.load.image('life', 'assets/life.png');
-    this.load.image('shieldPickup', 'assets/shieldIcon-2.png');
+    this.load.image('shieldPickup', 'assets/shieldPickup.png');
     // load audio
     this.load.audio('shoot', 'assets/audio/laserSound.mp3');
     this.load.audio('explodeAsteroid', 'assets/audio/asteroidExplode.wav');

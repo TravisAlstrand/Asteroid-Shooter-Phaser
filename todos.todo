@@ -12,6 +12,7 @@ CORE GAMEPLAY:
   ✔ screenshake on player damage @done(23-01-13 12:11)
   ☐ add pause / resume functionality
   ✔ stop score from going negative @done(23-01-16 09:58)
+  ☐ look into saving high score
 
 PLAYER:
   ✔ add player life images @done(23-01-15 09:26)
