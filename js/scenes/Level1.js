@@ -26,6 +26,7 @@ class Level1 extends Phaser.Scene {
     // load pickup images
     this.load.image('life', 'assets/life.png');
     this.load.image('shieldPickup', 'assets/shieldPickup.png');
+    this.load.image('scorePickup', 'assets/scorePickup.png');
     // load audio
     this.load.audio('shoot', 'assets/audio/laserSound.mp3');
     this.load.audio('explodeAsteroid', 'assets/audio/asteroidExplode.wav');
@@ -34,6 +35,7 @@ class Level1 extends Phaser.Scene {
     this.load.audio('lifePickup', 'assets/audio/lifePickup.mp3');
     this.load.audio('shieldPickupSound', 'assets/audio/shieldPickup.wav');
     this.load.audio('shieldDestroySound', 'assets/audio/loseShield.wav');
+    this.load.audio('scorePickupSound', 'assets/audio/scorePickup.ogg');
   };
 
   create() {
@@ -46,6 +48,7 @@ class Level1 extends Phaser.Scene {
     this.lifePickupSound = this.sound.add('lifePickup');
     this.shieldPickupSound = this.sound.add('shieldPickupSound');
     this.loseShieldSound = this.sound.add('shieldDestroySound');
+    this.scorePickupSound = this.sound.add('scorePickupSound');
     // add background image
     this.background = this.add.tileSprite(0, 0, config.width, config.height, 'background').setOrigin(0, 0);
     // create score text
@@ -165,12 +168,15 @@ class Level1 extends Phaser.Scene {
         this.lifePickupSound.play();
         this.updateLifeImages(this.playerLives);
       } else if (pickup.texture.key === 'shieldPickup') {
-        if (player.hasShield === true) {
+        if (player.hasShield) {
           this.shield.destroyShield(false);
         };
         this.shield = new Shield(this, player.x, 840);
         player.hasShield = true;
         this.shieldPickupSound.play();
+      } else if (pickup.texture.key === 'scorePickup') {
+        this.updateScore(500);
+        this.scorePickupSound.play();
       };
       pickup.destroyPickup();
     });
@@ -271,8 +277,10 @@ class Level1 extends Phaser.Scene {
     const randomX = Phaser.Math.Between(35, config.width - 35);
     if (this.playerLives < 3) {
       new Pickup(this, randomX, -100, 'life');
-    } else if (this.playerLives === 3) {
+    } else if (this.playerLives === 3 && (!this.player.hasShield || (this.player.hasShield && this.shield.health < 2))) {
       new Pickup(this, randomX, -100, 'shieldPickup');
+    } else {
+      new Pickup(this, randomX, -100, 'scorePickup');
     };
   };
 
