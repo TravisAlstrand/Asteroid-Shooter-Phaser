@@ -1,4 +1,5 @@
 SCENES:
+  ☐ add load scene
   ☐ add titlescreen / menu (start game, exit, controls)
   ☐ add pause functionality / overlay (current score, current lives / health, main menu)
   ☐ add game over screen / menu (play again, main menu, exit, score)
@@ -43,4 +44,4 @@ AUDIO:
   ✔ add looping background music @done(23-01-17 16:29)
   ✔ add fx for shield pickup @done(23-01-19 16:48)
   ✔ add fx for shield activate / deactivate @done(23-01-19 17:29)
-  ☐ lower audio for score pickup
+  ✔ lower audio for score pickup @done(23-01-22 12:14)

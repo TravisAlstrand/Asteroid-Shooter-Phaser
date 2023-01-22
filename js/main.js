@@ -12,7 +12,7 @@ const config = {
       debug: false
     }
   },
-  scene: [TitleScreen, Level1]
+  scene: [LoadScene, MainMenu, Level1]
 };
 
 const musicConfig = {

@@ -4,43 +4,11 @@ class Level1 extends Phaser.Scene {
   };
 
   preload() {
-    // load background image
-    this.load.image('background', 'assets/backgroundSpace.png');
-    // load player images
-    this.load.image('player', 'assets/player.png');
-    this.load.image('playerLeft', 'assets/playerLeft.png');
-    this.load.image('playerRight', 'assets/playerRight.png');
-    this.load.image('playerShield', 'assets/shield.png');
-    // load asteroid images
-    this.load.image('asteroidSmall', 'assets/asteroidSmall.png');
-    this.load.image('asteroidBig', 'assets/asteroidBig.png');
-    this.load.image('asteroidBig-2', 'assets/asteroidBig-2.png');
-    this.load.image('asteroidBig-3', 'assets/asteroidBig-3.png');
-    // load explosion spritesheet
-    this.load.spritesheet('explosion', 'assets/spritesheets/explosion.png', {
-      frameWidth: 64,
-      frameHeight: 64
-    });
-    // load laser image
-    this.load.image('laser', 'assets/laserRed.png');
-    // load pickup images
-    this.load.image('life', 'assets/life.png');
-    this.load.image('shieldPickup', 'assets/shieldPickup.png');
-    this.load.image('scorePickup', 'assets/scorePickup.png');
-    // load audio
-    this.load.audio('shoot', 'assets/audio/laserSound.mp3');
-    this.load.audio('explodeAsteroid', 'assets/audio/asteroidExplode.wav');
-    this.load.audio('explodePlayer', 'assets/audio/playerExplode.wav');
-    this.load.audio('gameMusic', 'assets/audio/gameMusic.ogg');
-    this.load.audio('lifePickup', 'assets/audio/lifePickup.mp3');
-    this.load.audio('shieldPickupSound', 'assets/audio/shieldPickup.wav');
-    this.load.audio('shieldDestroySound', 'assets/audio/loseShield.wav');
-    this.load.audio('scorePickupSound', 'assets/audio/scorePickup.ogg');
+
   };
 
   create() {
     this.music = this.sound.add('gameMusic');
-    this.music.play(musicConfig);
     // add sfx
     this.laserSound = this.sound.add('shoot');
     this.explodeAsteroidSound = this.sound.add('explodeAsteroid');
@@ -49,6 +17,7 @@ class Level1 extends Phaser.Scene {
     this.shieldPickupSound = this.sound.add('shieldPickupSound');
     this.loseShieldSound = this.sound.add('shieldDestroySound');
     this.scorePickupSound = this.sound.add('scorePickupSound');
+    this.scorePickupSound.setVolume(0.2);
     // add background image
     this.background = this.add.tileSprite(0, 0, config.width, config.height, 'background').setOrigin(0, 0);
     // create score text
@@ -198,6 +167,7 @@ class Level1 extends Phaser.Scene {
       this.countdownText.setVisible(false);
       this.addInitialAsteroids();
       this.startSpeedChangerLoop();
+      this.music.play(musicConfig);
     } else {
       this.initialTime--;
       this.countdownText.setText(this.initialTime.toString());
