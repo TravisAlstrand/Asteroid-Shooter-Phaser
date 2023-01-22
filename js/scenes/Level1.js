@@ -100,11 +100,11 @@ class Level1 extends Phaser.Scene {
     // scroll background
     this.background.tilePositionY -= gameSettings.backgroundSpeed;
     // check for player fire
-    if (Phaser.Input.Keyboard.JustDown(this.spaceKey) || Phaser.Input.Keyboard.JustDown(this.enterKey)) {
+    if (!this.gameOver && (Phaser.Input.Keyboard.JustDown(this.spaceKey) || Phaser.Input.Keyboard.JustDown(this.enterKey))) {
       this.addLaser();
     };
     if (this.gameOver && Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-      this.scene.stop();
+      this.music.stop();
       this.scene.start('mainMenu');
     };
     // check for pause button
