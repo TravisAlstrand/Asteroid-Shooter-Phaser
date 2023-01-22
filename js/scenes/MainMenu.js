@@ -29,10 +29,13 @@ class MainMenu extends Phaser.Scene {
     startText.setOrigin(0.5, 0.5);
     startText.setShadow(2, 2, 'white', 2);
 
+    this.ship = this.add.image(400, 700, 'life');
+
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
   };
 
   update() {
+    this.ship.angle += 1;
     if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
       this.music.stop();
       this.scene.start('level1');

@@ -30,7 +30,7 @@ class Level1 extends Phaser.Scene {
     this.lifeImages.forEach(image => {
       image.depth = 5;
     });
-    this.playerLives = 1;
+    this.playerLives = 3;
     // create input variables
     this.cursors = this.input.keyboard.createCursorKeys();
     this.spaceKey = this.cursors.space;
@@ -278,6 +278,10 @@ class Level1 extends Phaser.Scene {
     this.gameOverText.setOrigin(0.5, 0.5);
     this.gameOverText.depth = 5;
     this.gameOverText.setShadow(2, 2, 'white', 2);
+    this.menutext = this.add.text(400, 700, 'PRESS ENTER TO RETURN TO MENU', { fontFamily: 'Anton', fontSize: '50px', fill: 'white' });
+    this.menutext.setOrigin(0.5, 0.5);
+    this.menutext.depth = 5;
+    this.menutext.setShadow(2, 2, '#8934eb', 2);
   };
 
   speedUp() {
