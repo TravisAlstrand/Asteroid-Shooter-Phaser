@@ -3,11 +3,8 @@ class Level1 extends Phaser.Scene {
     super('level1');
   };
 
-  preload() {
-
-  };
-
   create() {
+    this.gameOver = false;
     this.music = this.sound.add('gameMusic');
     // add sfx
     this.laserSound = this.sound.add('shoot');
@@ -33,7 +30,7 @@ class Level1 extends Phaser.Scene {
     this.lifeImages.forEach(image => {
       image.depth = 5;
     });
-    this.playerLives = 3;
+    this.playerLives = 1;
     // create input variables
     this.cursors = this.input.keyboard.createCursorKeys();
     this.spaceKey = this.cursors.space;
@@ -106,13 +103,16 @@ class Level1 extends Phaser.Scene {
     if (Phaser.Input.Keyboard.JustDown(this.spaceKey) || Phaser.Input.Keyboard.JustDown(this.enterKey)) {
       this.addLaser();
     };
+    if (this.gameOver && Phaser.Input.Keyboard.JustDown(this.enterKey)) {
+      this.scene.stop();
+      this.scene.start('mainMenu');
+    };
     // check for pause button
     // if (Phaser.Input.Keyboard.JustUp(this.escKey) && !this.scene.isPaused()) {
     //   this.scene.pause();
     // };
   };
 
-  // add player to the scene
   addPlayer() {
     // start below screen
     this.player = new Player(this, 400, 925);
@@ -149,6 +149,7 @@ class Level1 extends Phaser.Scene {
       };
       pickup.destroyPickup();
     });
+    // move player up on start
     this.tweens.add({
       targets: this.player,
       y: config.height - 65,
@@ -272,6 +273,7 @@ class Level1 extends Phaser.Scene {
   };
 
   showTempGameOver() {
+    this.gameOver = true;
     this.gameOverText = this.add.text(400, 462.5, 'GAME OVER', { fontFamily: 'Anton', fontSize: '80px', fill: '#4ad468' });
     this.gameOverText.setOrigin(0.5, 0.5);
     this.gameOverText.depth = 5;

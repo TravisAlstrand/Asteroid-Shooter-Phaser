@@ -5,14 +5,14 @@ class LoadScene extends Phaser.Scene {
   };
 
   preload() {
-    // loading bar
+    // loading bar / text
     const progressBar = this.add.graphics();
     const progressBox = this.add.graphics();
     progressBox.fillStyle(0x222222, 0.8);
     progressBox.fillRect(240, 270, 320, 50);
     const width = this.cameras.main.width;
     const height = this.cameras.main.height;
-    let loadingText = this.make.text({
+    const loadingText = this.make.text({
       x: width / 2,
       y: height / 2 - 50,
       text: 'Loading...',
@@ -50,6 +50,7 @@ class LoadScene extends Phaser.Scene {
     this.load.audio('explodeAsteroid', 'assets/audio/asteroidExplode.wav');
     this.load.audio('explodePlayer', 'assets/audio/playerExplode.wav');
     this.load.audio('gameMusic', 'assets/audio/gameMusic.ogg');
+    this.load.audio('menuMusic', 'assets/audio/menuMusic.ogg');
     this.load.audio('lifePickup', 'assets/audio/lifePickup.mp3');
     this.load.audio('shieldPickupSound', 'assets/audio/shieldPickup.wav');
     this.load.audio('shieldDestroySound', 'assets/audio/loseShield.wav');
@@ -67,9 +68,6 @@ class LoadScene extends Phaser.Scene {
       loadingText.destroy();
       this.startGame();
     });
-  };
-
-  create() {
   };
 
   startGame() {

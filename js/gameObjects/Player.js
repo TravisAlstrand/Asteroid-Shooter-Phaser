@@ -41,7 +41,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
   damagePlayer() {
     this.health--;
-    console.log(`playerHealth: ${this.health}`)
     this.gameScene.explodeAsteroidSound.play();
     this.alpha = 0.5;
     this.gameScene.time.addEvent({
