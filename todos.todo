@@ -1,8 +1,8 @@
 SCENES:
-  ☐ add load scene
-  ☐ add titlescreen / menu (start game, exit, controls)
+  ✔ add load scene @done(23-01-22 14:36)
+  ✔ add titlescreen / menu (start game, controls) @done(23-01-22 14:36)
   ☐ add pause functionality / overlay (current score, current lives / health, main menu)
-  ☐ add game over screen / menu (play again, main menu, exit, score)
+  ✔ add game over screen (main menu, score) @done(23-01-22 14:37)
 
 CORE GAMEPLAY:
   ✔ make player invincible for period on re-spawn @done(23-01-16 09:58)
