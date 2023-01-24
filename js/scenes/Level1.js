@@ -4,6 +4,7 @@ class Level1 extends Phaser.Scene {
   };
 
   create() {
+    this.resetGameSettings();
     this.gameOver = false;
     this.music = this.sound.add('gameMusic');
     // add sfx
@@ -37,7 +38,7 @@ class Level1 extends Phaser.Scene {
     this.aKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.dKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-    // this.escKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+    this.escKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     // create laser group
     this.projectiles = this.add.group({
       classType: Laser,
@@ -103,7 +104,7 @@ class Level1 extends Phaser.Scene {
     if (!this.gameOver && (Phaser.Input.Keyboard.JustDown(this.spaceKey) || Phaser.Input.Keyboard.JustDown(this.enterKey))) {
       this.addLaser();
     };
-    if (this.gameOver && Phaser.Input.Keyboard.JustDown(this.enterKey)) {
+    if (this.gameOver && Phaser.Input.Keyboard.JustDown(this.escKey)) {
       this.music.stop();
       this.scene.start('mainMenu');
     };
@@ -111,6 +112,13 @@ class Level1 extends Phaser.Scene {
     // if (Phaser.Input.Keyboard.JustUp(this.escKey) && !this.scene.isPaused()) {
     //   this.scene.pause();
     // };
+  };
+
+  resetGameSettings() {
+    gameSettings.backgroundSpeed = 0.75;
+    gameSettings.playerSpeed = 300;
+    gameSettings.asteroidSpeedLow = 1;
+    gameSettings.asteroidSpeedHigh = 3;
   };
 
   addPlayer() {
@@ -190,7 +198,7 @@ class Level1 extends Phaser.Scene {
         callbackScope: this
       });
     } else {
-      this.showTempGameOver();
+      this.showGameOver();
     };
   };
 
@@ -272,13 +280,13 @@ class Level1 extends Phaser.Scene {
     this.scoreText.setText(`Score : ${this.score}`);
   };
 
-  showTempGameOver() {
+  showGameOver() {
     this.gameOver = true;
     this.gameOverText = this.add.text(400, 462.5, 'GAME OVER', { fontFamily: 'Anton', fontSize: '80px', fill: '#4ad468' });
     this.gameOverText.setOrigin(0.5, 0.5);
     this.gameOverText.depth = 5;
     this.gameOverText.setShadow(2, 2, 'white', 2);
-    this.menutext = this.add.text(400, 700, 'PRESS ENTER TO RETURN TO MENU', { fontFamily: 'Anton', fontSize: '50px', fill: 'white' });
+    this.menutext = this.add.text(400, 700, 'PRESS ESC TO RETURN TO MENU', { fontFamily: 'Anton', fontSize: '50px', fill: 'white' });
     this.menutext.setOrigin(0.5, 0.5);
     this.menutext.depth = 5;
     this.menutext.setShadow(2, 2, '#8934eb', 2);
